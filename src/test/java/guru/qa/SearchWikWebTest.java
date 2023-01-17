@@ -8,21 +8,21 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class GramotaWebTest {
+public class SearchWikWebTest {
     @BeforeEach
     void setUp(){
-        open("https://dictionary.cambridge.org/");
+        open("https://ru.wikipedia.org/");
 
     }
     @CsvSource (value = {
-            "Set, set",
-            "over, over"
+            "viking, Viking",
+            "oculus, Oculus"
     })
     @ParameterizedTest(name = "Проверка выдачи результата {1}" +
             "в результатах выдачи словаря по запросу {0}")
     void cambridgeSearchTest(String searchQuery, String expectedLabel) {
-        $("#searchword").setValue(searchQuery).pressEnter();
-        $("#hw dhw").shouldHave(text(expectedLabel));
+        $("#searchInput").setValue(searchQuery).pressEnter();
+        $(".mw-search-results-container").shouldHave(text(expectedLabel));
     }
 
 }
